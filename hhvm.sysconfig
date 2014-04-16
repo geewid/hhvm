@@ -1,4 +1,4 @@
-ODE=daemon
+MODE=daemon
 USER=hiphop
 PID=/var/run/hhvm/hhvm.pid
 ARGS="--config /etc/hhvm/konfig.hdf -vPidFile=${PID}"

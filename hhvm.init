@@ -27,7 +27,6 @@ if [ -f /etc/sysconfig/hhvm ]; then
 fi
 
 
-
 start() {
         echo -n $"Starting $prog: "
                 daemon ${HHVM} --mode ${MODE} --user ${USER} ${ARGS}
@@ -36,7 +35,6 @@ start() {
 	[ $RETVAL = 0 ] && touch ${lockfile}
         return $RETVAL
 }
-
 
 stop() {
         echo -n $"Stopping $prog: "
