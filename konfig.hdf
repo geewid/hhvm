@@ -1,0 +1,76 @@
+Log {
+  Level = Warning
+  NoSilencer = true
+  Header = true
+  AlwaysLogUnhandledExceptions = true
+  RuntimeErrorReportingLevel = 8191
+  UseLogFile = true
+  UseSyslog = false
+  File = /var/log/hhvm/error.log
+  Access {
+    * {
+      File = /var/log/hhvm/access.log
+      Format = %h %l %u % t \"%r\" %>s %b
+    }
+  }
+}
+
+Server {
+  Type = fastcgi
+  IP = 127.0.0.1
+  FileSocket = /var/run/hhvm/hhvm.socket
+#  Port = 9000
+  SourceRoot = /home/testy/www/
+#  DefaultDocument = index.php
+  ThreadCount = 16
+  GzipCompressionLevel = 3
+  EnableMagicQuotesGpc = false
+  EnableKeepAlive = true
+  EnableEarlyFlush = true
+  ForceChunkedEncoding = false
+  MaxPostSize = 8MB
+#  ResponseQueueCount = 0
+#  PathDebug = false
+}
+
+Eval {
+  Jit = true
+#  JitWarmupRequests = 3
+}
+
+Repo {
+#  Authoritative = true
+  Central {
+    Path = /var/log/hhvm/.hhvm.hhbc
+  }
+}
+
+Http {
+  DefaultTimeout = 120
+  SlowQueryThreshold = 5000
+}
+
+#include "/usr/share/hhvm/hdf/static.mime-types.hdf"
+StaticFile {
+  FilesMatch {
+    * {
+      pattern = .*\.(dll|exe)
+      headers {
+        * = Content-Disposition: attachment
+      }
+    }
+  }
+  Extensions : StaticMimeTypes
+}
+
+MySQL {
+  TypedResults = false
+}
+
+PhpFile {
+  Extensions {
+    php = application/x-hhvm-php
+    js = application/x-hhvm-php
+    gif = application/x-hhvm-php
+  }
+}
